@@ -15,4 +15,10 @@ class Chronogolf
     @tee_times = input['tee_times']
     @reservations = input['reservations']
   end
+
+  private
+
+  def save_file(filename, result)
+    File.write(filename, { 'reservations' => result }.to_json)
+  end
 end

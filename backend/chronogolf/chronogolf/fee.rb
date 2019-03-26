@@ -7,7 +7,7 @@ class Chronogolf
 
     # call method
     def fee
-      File.write('./fee_output.json', { 'reservations' => calc_fee_for_reservations }.to_json)
+      save_file('./fee_output.json', calc_fee_for_reservations)
     end
 
     private

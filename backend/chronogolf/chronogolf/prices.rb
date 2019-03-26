@@ -3,7 +3,7 @@ class Chronogolf
   module Prices
     # call method
     def prices
-      File.write('./prices_output.json', { 'reservations' => calc_price_for_reservations }.to_json)
+      save_file('./prices_output.json', calc_price_for_reservations)
     end
 
     private

@@ -7,7 +7,7 @@ class Chronogolf
 
     # call method
     def adapted_prices
-      File.write('./prices_adaptation_output.json', { 'reservations' => calc_price_adaptations }.to_json)
+      save_file('./prices_adaptation_output.json', calc_price_adaptations)
     end
 
     private
