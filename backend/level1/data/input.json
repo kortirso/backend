@@ -1,0 +1,12 @@
+{
+  "tee_times": [
+    { "id": 1, "starts_at": "06:00:00", "price_per_golfer": 20 },
+    { "id": 2, "starts_at": "06:10:00", "price_per_golfer": 20 },
+    { "id": 3, "starts_at": "06:20:00", "price_per_golfer": 15 }
+  ],
+  "reservations": [
+    { "id": 1, "tee_time_id": 1, "number_of_golfers": 2 },
+    { "id": 2, "tee_time_id": 1, "number_of_golfers": 1 },
+    { "id": 3, "tee_time_id": 3, "number_of_golfers": 4 }
+  ]
+}

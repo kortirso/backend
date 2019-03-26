@@ -1,0 +1,12 @@
+{
+  "reservations": [
+    {
+      "id": 1,
+      "price": 32,
+      "fee": {
+        "payment_gateway_fee": 0.91,
+        "chronogolf_fee": 0.05
+      }
+    }
+  ]
+}

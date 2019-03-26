@@ -1,0 +1,17 @@
+{
+  "tee_times": [
+    {
+      "id": 1,
+      "starts_at": "2019-07-16 06:00:00 -0500",
+      "price_per_golfer": 20
+    }
+  ],
+  "reservations": [
+    {
+      "id": 1,
+      "tee_time_id": 1,
+      "number_of_golfers": 2,
+      "reserved_at": "2019-07-02 10:45:14 -0500"
+    }
+  ]
+}

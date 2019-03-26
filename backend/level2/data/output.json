@@ -1,0 +1,12 @@
+{
+  "reservations": [
+    {
+      "id": 1,
+      "price": 36
+    },
+    {
+      "id": 2,
+      "price": 42
+    }
+  ]
+}
