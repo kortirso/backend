@@ -29,18 +29,19 @@ class Chronogolf
       starts_at = DateTime.parse(tee_time['starts_at'])
       reserved_at = DateTime.parse(reservation['reserved_at']).new_offset(starts_at.zone)
 
-      if starts_at.strftime('%Y-%m-%d') == reserved_at.strftime('%Y-%m-%d')
-        1.05
-      else
-        days_difference = (starts_at.to_time.to_i - reserved_at.to_time.to_i) / SECONDS_IN_DAY
-        if days_difference > 7
-          0.8
-        elsif days_difference <= 7 && days_difference > 2
-          0.9
-        else
-          1
-        end
-      end
+      return 1.05 if same_day?(starts_at, reserved_at)
+      days_difference = calc_days_difference(starts_at, reserved_at)
+      return 0.8 if days_difference > 7
+      return 0.9 if days_difference <= 7 && days_difference > 2
+      1
+    end
+
+    def same_day?(date1, date2)
+      date1.strftime('%Y-%m-%d') == date2.strftime('%Y-%m-%d')
+    end
+
+    def calc_days_difference(date1, date2)
+      (date1.to_time.to_i - date2.to_time.to_i) / SECONDS_IN_DAY
     end
   end
 end

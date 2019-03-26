@@ -77,4 +77,39 @@ RSpec.describe Chronogolf do
       expect(result).to eq service.send(:calc_price, tee_time, reservation) * service.send(:adaption_koefficient, tee_time, reservation)
     end
   end
+
+  describe '.same_day?' do
+    context 'for the same day' do
+      let!(:reservation) { service.reservations[1] }
+      let!(:tee_time) { service.send(:find_tee_time_for_reservation, reservation) }
+      let!(:starts_at) { DateTime.parse(tee_time['starts_at']) }
+      let!(:reserved_at) { DateTime.parse(reservation['reserved_at']).new_offset(starts_at.zone) }
+
+      it 'returns true' do
+        expect(service.send(:same_day?, starts_at, reserved_at)).to eq true
+      end
+    end
+
+    context 'for different days' do
+      let!(:reservation) { service.reservations[0] }
+      let!(:tee_time) { service.send(:find_tee_time_for_reservation, reservation) }
+      let!(:starts_at) { DateTime.parse(tee_time['starts_at']) }
+      let!(:reserved_at) { DateTime.parse(reservation['reserved_at']).new_offset(starts_at.zone) }
+
+      it 'returns true' do
+        expect(service.send(:same_day?, starts_at, reserved_at)).to eq false
+      end
+    end
+  end
+
+  describe '.calc_days_difference' do
+    let!(:reservation) { service.reservations[0] }
+    let!(:tee_time) { service.send(:find_tee_time_for_reservation, reservation) }
+    let!(:starts_at) { DateTime.parse(tee_time['starts_at']) }
+    let!(:reserved_at) { DateTime.parse(reservation['reserved_at']).new_offset(starts_at.zone) }
+
+    it 'returns amount of days' do
+      expect(service.send(:calc_days_difference, starts_at, reserved_at).round).to eq 7
+    end
+  end
 end
