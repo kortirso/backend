@@ -1,5 +1,5 @@
 class Chronogolf
-  # Module for detecting language of the text
+  # Module for calculation for prices
   module Prices
     # call method
     def prices
@@ -13,8 +13,8 @@ class Chronogolf
     end
 
     def calc_price_for_reservation(reservation)
-      tee_time = tee_times.detect { |tee| tee['id'] == reservation['tee_time_id'] }
-      { 'id' => reservation['id'], 'price' => tee_time['price_per_golfer'] * reservation['number_of_golfers'] }
+      tee_time = find_tee_time_for_reservation(reservation)
+      { 'id' => reservation['id'], 'price' => calc_price(tee_time, reservation) }
     end
   end
 end

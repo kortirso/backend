@@ -30,9 +30,20 @@ RSpec.describe Chronogolf do
     end
   end
 
+  describe '.calc_price' do
+    let!(:reservation) { service.reservations.sample }
+    let!(:tee_time) { service.send(:find_tee_time_for_reservation, reservation) }
+
+    it 'returns price' do
+      result = service.send(:calc_price, tee_time, reservation)
+
+      expect(result).to eq tee_time['price_per_golfer'] * reservation['number_of_golfers']
+    end
+  end
+
   describe '.calc_price_for_reservation' do
     let!(:reservation) { service.reservations.sample }
-    let!(:tee_time) { service.tee_times.detect { |tee| tee['id'] == reservation['tee_time_id'] } }
+    let!(:tee_time) { service.send(:find_tee_time_for_reservation, reservation) }
 
     it 'returns hash with id and price for reservation' do
       result = service.send(:calc_price_for_reservation, reservation)
@@ -40,6 +51,16 @@ RSpec.describe Chronogolf do
       expect(result.is_a?(Hash)).to eq true
       expect(result['id']).to eq reservation['id']
       expect(result['price']).to eq tee_time['price_per_golfer'] * reservation['number_of_golfers']
+    end
+  end
+
+  describe '.find_tee_time_for_reservation' do
+    let!(:reservation) { service.reservations.sample }
+
+    it 'returns tee_time for reservation' do
+      result = service.send(:find_tee_time_for_reservation, reservation)
+
+      expect(result).to eq service.tee_times.detect { |tee| tee['id'] == reservation['tee_time_id'] }
     end
   end
 end
